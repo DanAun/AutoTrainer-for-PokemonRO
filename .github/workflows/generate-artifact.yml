@@ -29,6 +29,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+          cache: 'pip'
 
       - name: Install Dependencies
         run: |
@@ -41,7 +42,7 @@ jobs:
           pyinstaller --onefile main.py
         continue-on-error: false
 
-      - name: Upload EXE as Artifact
+      - name: Generate Artifact
         uses: actions/upload-artifact@v4
         with:
           name: main.exe
