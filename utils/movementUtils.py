@@ -6,7 +6,7 @@ from utils.battleUtils import isInBattle
 
 # Options
 DEFAULT_WALK_SPEED = 1/5
-DEFAULT_WIGGLE_DISTANCE = 5
+DEFAULT_WIGGLE_DISTANCE = 2
 DEFAULT_WIGGLE_AXES = 'y'
 
 
@@ -29,8 +29,8 @@ def wiggle(distance=DEFAULT_WIGGLE_DISTANCE, axes=DEFAULT_WIGGLE_AXES, walkSpeed
             raise ValueError("Invalid axes")
     pyautogui.keyDown(forward)
     pyautogui.sleep(distance * walkSpeed)
-    pyautogui.keyDown(backward)
     pyautogui.keyUp(forward)
+    pyautogui.keyDown(backward)
     pyautogui.sleep(distance * walkSpeed)
     pyautogui.keyUp(backward)
 
