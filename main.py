@@ -2,7 +2,7 @@ import pyautogui
 import logging
 
 from utils.battleUtils import spamToWin
-from utils.movementUtils import attractWildPokemon
+from utils.movementUtils import attractWildPokemon, releaseAllKeys
 
 
 def autoBattle():
@@ -14,8 +14,7 @@ def autoBattle():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     pyautogui.FAILSAFE = True
-    welcomeText = """Welcome to the AutoBattler!\nTo exit the battler move mouse to top left corner.\n
-                     Press OK to start the autoBattler"""
+    welcomeText = """Welcome to the AutoBattler!\nTo exit the battler move mouse to top left corner.\nPress OK to start the autoBattler"""
     reply = pyautogui.confirm(text=welcomeText, title='Confirmation', buttons=['OK', 'Cancel'])
     if not reply == 'OK':
         exit()
@@ -23,4 +22,5 @@ if __name__ == "__main__":
     try:
         autoBattle()
     except pyautogui.FailSafeException:
+        releaseAllKeys()
         logging.info("Exiting the AutoBattler")
