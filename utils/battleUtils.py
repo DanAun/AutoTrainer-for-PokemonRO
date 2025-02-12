@@ -3,6 +3,7 @@
 import pyautogui
 import logging
 from exceptions import NotInBattleError, BattleTimeoutError
+from utils.utils import resourcePath
 
 # Constants
 MOUSE_DURATION = 0.2
@@ -12,14 +13,15 @@ Y_COEFF = 0.10  # 10% of the window height
 
 def getWindowDimensions():
     """Returns the dimensions of the battle window"""
-    topLeft = pyautogui.locateCenterOnScreen('images/battle-window-corner.png', grayscale=True, confidence=0.9)
-    bottomRight = pyautogui.locateCenterOnScreen('images/icons/run-icon.png', grayscale=True)
+    topLeft = pyautogui.locateCenterOnScreen(resourcePath('images/battle-window-corner.png'),
+                                             grayscale=True, confidence=0.9)
+    bottomRight = pyautogui.locateCenterOnScreen(resourcePath('images/icons/run-icon.png'), grayscale=True)
     return abs(bottomRight.x - topLeft.x), abs(bottomRight.y - topLeft.y)
 
 
 def clickFight():
     """Clicks the fight icon"""
-    pos = pyautogui.locateCenterOnScreen('images/icons/fight-icon.png', grayscale=True)
+    pos = pyautogui.locateCenterOnScreen(resourcePath('images/icons/fight-icon.png'), grayscale=True)
     pyautogui.moveTo(pos.x, pos.y, duration=MOUSE_DURATION)
     pyautogui.click()
 
@@ -45,7 +47,7 @@ def useMove(moveNr):
 
 def isInBattle():
     try:
-        pyautogui.locateCenterOnScreen('images/battle-window-corner.png', grayscale=True, confidence=0.9)
+        pyautogui.locateCenterOnScreen(resourcePath('images/battle-window-corner.png'), grayscale=True, confidence=0.9)
         return True
     except pyautogui.ImageNotFoundException:
         return False

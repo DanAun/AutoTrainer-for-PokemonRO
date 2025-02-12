@@ -40,7 +40,7 @@ jobs:
 
       - name: Compile Python Script
         run: |
-          pyinstaller --onefile main.py --name ${{ env.EXE_NAME }}
+          pyinstaller --onefile main.py --add-data "images;images" --name ${{ env.EXE_NAME }}
         continue-on-error: false
 
       - name: Generate Artifact
