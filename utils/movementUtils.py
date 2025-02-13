@@ -6,7 +6,7 @@ from utils.battleUtils import isInBattle
 
 # Options
 DEFAULT_WALK_SPEED = 1/5
-DEFAULT_WIGGLE_DISTANCE = 2
+DEFAULT_WIGGLE_DISTANCE = 4
 DEFAULT_WIGGLE_AXES = 'y'
 
 

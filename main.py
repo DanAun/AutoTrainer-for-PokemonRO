@@ -1,13 +1,21 @@
 import pyautogui
 import logging
 
-from utils.battleUtils import spamToWin
+from exceptions import BattleTimeoutError
+from utils.battleUtils import spamToWin, switchPokemon
 from utils.movementUtils import attractWildPokemon, releaseAllKeys
 
 
 def autoBattle():
     while True:
         attractWildPokemon()
+        spamToWin(1)
+
+
+def carryAutoBattle(CarryPokemon):
+    while True:
+        attractWildPokemon()
+        switchPokemon(CarryPokemon)
         spamToWin(1)
 
 
@@ -20,7 +28,8 @@ if __name__ == "__main__":
         exit()
     logging.info("Starting the AutoBattler")
     try:
-        autoBattle()
+        carryAutoBattle(2)
+        # autoBattle()
     except pyautogui.FailSafeException:
         releaseAllKeys()
         logging.info("Exiting the AutoBattler")
