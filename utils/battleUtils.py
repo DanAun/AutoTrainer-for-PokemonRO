@@ -98,6 +98,15 @@ def isMyTurn():
         return False
 
 
+def isDitto():
+    """Checks if the opponent is a Ditto by checking if ditto is visible"""
+    try:
+        pyautogui.locateCenterOnScreen(resourcePath('images/ditto.png'), grayscale=True, confidence=0.7)
+        return True
+    except pyautogui.ImageNotFoundException:
+        return False
+
+
 def waitForMyTurn(timeout=15):
     """Waits for the player's turn"""
     logging.debug("Waiting for my turn")
@@ -112,10 +121,14 @@ def waitForMyTurn(timeout=15):
 
 
 def spamToWin(moveNr):
+    """Spams the given move number until the battle ends, returns the number of moves used"""
+    moveCnt = 0
     while isInBattle():
         try:
             waitForMyTurn()
             useMove(moveNr)
+            moveCnt += 1
         except NotInBattleError:
             break
-    logging.debug("Battle ended")
+    logging.debug("Battle ended, used %d moves", moveCnt)
+    return moveCnt
