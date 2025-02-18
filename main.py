@@ -60,5 +60,6 @@ if __name__ == "__main__":
     try:
         main()
     except pyautogui.FailSafeException:
+        pyautogui.FAILSAFE = False
         releaseAllKeys()
         logging.info("FailSafe triggered, exiting the AutoBattler")
