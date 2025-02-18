@@ -2,12 +2,14 @@
 import pyautogui
 import logging
 
-from utils.battleUtils import isInBattle
+from src.utils.battleUtils import isInBattle
+from src.utils.configUtils import getConfig, getIntConfig
 
-# Options
-DEFAULT_WALK_SPEED = 1/5
-DEFAULT_WIGGLE_DISTANCE = 2
-DEFAULT_WIGGLE_AXES = 'y'
+# Settings
+WALK_SPEED = getIntConfig('Walk_Speed')
+BIKE_SPEED = getIntConfig('Bike_Speed')
+WIGGLE_DISTANCE = getIntConfig('Wiggle_Distance')
+WIGGLE_AXES = getConfig('Wiggle_Axes')
 
 
 def releaseAllKeys():
@@ -16,7 +18,7 @@ def releaseAllKeys():
         pyautogui.keyUp(key)
 
 
-def wiggle(distance=DEFAULT_WIGGLE_DISTANCE, axes=DEFAULT_WIGGLE_AXES, walkSpeed=DEFAULT_WALK_SPEED):
+def wiggle(distance=WIGGLE_DISTANCE, axes=WIGGLE_AXES, walkSpeed=BIKE_SPEED):
     """Moves the character distance back and forth on the specified axes"""
     match axes:
         case 'x':
@@ -28,10 +30,10 @@ def wiggle(distance=DEFAULT_WIGGLE_DISTANCE, axes=DEFAULT_WIGGLE_AXES, walkSpeed
         case _:
             raise ValueError("Invalid axes")
     pyautogui.keyDown(forward)
-    pyautogui.sleep(distance * walkSpeed)
+    pyautogui.sleep(distance / walkSpeed)
     pyautogui.keyUp(forward)
     pyautogui.keyDown(backward)
-    pyautogui.sleep(distance * walkSpeed)
+    pyautogui.sleep(distance / walkSpeed)
     pyautogui.keyUp(backward)
 
 

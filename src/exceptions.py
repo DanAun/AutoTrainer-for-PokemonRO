@@ -8,3 +8,9 @@ class NotInBattleError(Exception):
     def __init__(self, message="Is not in battle"):
         self.message = message
         super().__init__(self.message)
+
+
+class ConfigFileError(Exception):
+    def __init__(self, message="Error in config file"):
+        self.message = message
+        super().__init__(self.message)
