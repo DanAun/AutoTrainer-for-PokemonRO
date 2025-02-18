@@ -1,5 +1,6 @@
 import os
 import logging
+import sys
 import pyautogui
 from ast import literal_eval
 
@@ -31,10 +32,10 @@ def switchTraining(PP, pokemonNr):
 
 
 def displayWelcomeMessage():
-    welcomeText = """Welcome to the AutoBattler!\nTo exit the battler move mouse to top left corner of the screen!\nCustomize possible in 'config.ini'\nPress OK to start the AutoBattler"""
+    welcomeText = """Welcome to the AutoTrainer!\nTo exit the trainer move the mouse to top left corner of the screen!\nCustomization is possible in 'config.ini'\nPress OK to start the AutoBattler"""
     reply = pyautogui.confirm(text=welcomeText, title='Confirmation', buttons=['OK', 'Cancel'])
     if not reply == 'OK':
-        exit()
+        sys.exit()
 
 
 def main():
