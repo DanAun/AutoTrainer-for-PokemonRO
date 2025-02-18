@@ -20,7 +20,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-latest
     env:
-      EXE_NAME: AutoBattler.exe
+      NAME: AutoTrainer
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,13 +40,13 @@ jobs:
 
       - name: Compile Python Script
         run: |
-          pyinstaller --onefile main.py --add-data "images;images" --name ${{ env.EXE_NAME }}
+          pyinstaller main.py --onedir --noconsole --add-data "images;images" --name ${{ env.NAME }}
         continue-on-error: false
 
       - name: Generate Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.EXE_NAME }}
-          path: dist/${{ env.EXE_NAME }}
+          name: ${{ env.NAME }}
+          path: dist/
 
 

@@ -2,14 +2,17 @@
 
 import pyautogui
 import logging
-from exceptions import NotInBattleError, BattleTimeoutError
-from utils.utils import resourcePath
+from src.exceptions import NotInBattleError, BattleTimeoutError
+from src.utils.configUtils import getFloatConfig, getIntConfig
+from src.utils.buildUtils import resourcePath
 
 # Constants
-MOUSE_DURATION = 0.05
-NUMBER_OF_MOVES = 4
-Y_COEFF = 0.10  # 10% of the window height
-X_COEFF = 0.10  # 10% of the window width
+NUMBER_OF_MOVES = getIntConfig('NUMBER_OF_MOVES', 'Constants')
+Y_COEFF = getFloatConfig('Y_COEFF', 'Constants')
+X_COEFF = getFloatConfig('X_COEFF', 'Constants')
+
+# Settings
+MOUSE_DURATION = getFloatConfig('Mouse_Duration')
 
 
 def getWindowDimensions():
@@ -34,7 +37,7 @@ def clickPokemon():
     pyautogui.click()
 
 
-def switchPokemon(pokemonNr):
+def switchToPokemon(pokemonNr):
     """Switches to the given pokemon number"""
     if pokemonNr not in range(1, 7):
         raise ValueError("Invalid pokemon number")
@@ -98,15 +101,6 @@ def isMyTurn():
         return False
 
 
-def isDitto():
-    """Checks if the opponent is a Ditto by checking if ditto is visible"""
-    try:
-        pyautogui.locateCenterOnScreen(resourcePath('images/ditto.png'), grayscale=True, confidence=0.7)
-        return True
-    except pyautogui.ImageNotFoundException:
-        return False
-
-
 def waitForMyTurn(timeout=15):
     """Waits for the player's turn"""
     logging.debug("Waiting for my turn")
@@ -120,7 +114,7 @@ def waitForMyTurn(timeout=15):
         pyautogui.sleep(0.1)
 
 
-def spamToWin(moveNr):
+def spamMove(moveNr):
     """Spams the given move number until the battle ends, returns the number of moves used"""
     moveCnt = 0
     while isInBattle():

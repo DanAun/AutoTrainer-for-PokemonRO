@@ -1,43 +1,64 @@
-import pyautogui
+import os
 import logging
+import pyautogui
+from ast import literal_eval
 
-from utils.battleUtils import spamToWin, switchPokemon
-from utils.movementUtils import attractWildPokemon, releaseAllKeys
+from src.utils.configUtils import CONFIG_FILE, getBoolConfig, getConfig, initConfig
+if not os.path.isfile(CONFIG_FILE):
+    logging.info("Config file not found, creating a new one")
+    initConfig()
+
+from src.utils.battleUtils import spamMove, switchToPokemon
+from src.exceptions import ConfigFileError
+from src.utils.movementUtils import attractWildPokemon, releaseAllKeys
 
 
-def autoBattle():
-    while True:
-        attractWildPokemon()
-        spamToWin(1)
-
-
-def autoPPBattle(PP):
-    for i in range(4):
+def autoTraining(PP):
+    """Auto battles until PP runs out"""
+    for i in range(len(PP)):
         while PP[i] > 0:
             attractWildPokemon()
-            PP[i] -= spamToWin(i+1)
-            print(PP[i])
+            PP[i] -= spamMove(i+1)
 
 
-def carryAutoBattle(CarryPokemon):
-    while True:
-        attractWildPokemon()
-        switchPokemon(CarryPokemon)
-        spamToWin(1)
+def switchTraining(PP, pokemonNr):
+    """Like autoTraining but switches pokemon first thing in the battle. Useful for training weak pokemon"""
+    for i in range(len(PP)):
+        while PP[i] > 0:
+            attractWildPokemon()
+            switchToPokemon(pokemonNr)
+            PP[i] -= spamMove(i+1)
+
+
+def displayWelcomeMessage():
+    welcomeText = """Welcome to the AutoBattler!\nTo exit the battler move mouse to top left corner of the screen!\nCustomize possible in 'config.ini'\nPress OK to start the AutoBattler"""
+    reply = pyautogui.confirm(text=welcomeText, title='Confirmation', buttons=['OK', 'Cancel'])
+    if not reply == 'OK':
+        exit()
+
+
+def main():
+    if getBoolConfig('Display_Welcome_Message'):
+        displayWelcomeMessage()
+
+    logging.info("Starting the AutoBattler")
+    trainingType = getConfig('Training_Type')
+    PP = literal_eval(getConfig('Power_Point'))
+    match trainingType:
+        case 'normal':
+            autoTraining(PP)
+        case 'switch':
+            switchTraining(PP)
+        case _:
+            logging.error("Invalid training type")
+            raise ConfigFileError()
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     pyautogui.FAILSAFE = True
-    welcomeText = """Welcome to the AutoBattler!\nTo exit the battler move mouse to top left corner.\nPress OK to start the autoBattler"""
-    reply = pyautogui.confirm(text=welcomeText, title='Confirmation', buttons=['OK', 'Cancel'])
-    if not reply == 'OK':
-        exit()
-    logging.info("Starting the AutoBattler")
     try:
-        # carryAutoBattle(2)
-        PP = [15, 10, 15]
-        autoBattle()
+        main()
     except pyautogui.FailSafeException:
         releaseAllKeys()
-        logging.info("Exiting the AutoBattler")
+        logging.info("FailSafe triggered, exiting the AutoBattler")
