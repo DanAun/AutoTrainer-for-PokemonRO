@@ -48,5 +48,6 @@ jobs:
         with:
           name: ${{ env.NAME }}
           path: dist/*
+          retention-days: 7
 
 
