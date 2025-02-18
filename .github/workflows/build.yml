@@ -41,10 +41,10 @@ jobs:
           pyinstaller main.py --onedir --noconsole --add-data "images;images" --name ${{ env.NAME }}
         continue-on-error: false
 
-      - name: Generate Artifact
+      - name: Generate Windows Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.NAME }}
+          name: ${{ env.NAME }}-windows
           path: dist/*
           retention-days: 7
 
@@ -73,9 +73,9 @@ jobs:
           pyinstaller main.py --onedir --noconsole --add-data "images:images" --name ${{ env.NAME }}
         continue-on-error: false
 
-      - name: Generate Artifact
+      - name: Generate Linux Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.NAME }}
+          name: ${{ env.NAME }}-linux
           path: dist/*
           retention-days: 7
