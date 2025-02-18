@@ -3,7 +3,7 @@ import logging
 import pyautogui
 from ast import literal_eval
 
-from src.utils.configUtils import CONFIG_FILE, getBoolConfig, getConfig, initConfig
+from src.utils.configUtils import CONFIG_FILE, getBoolConfig, getConfig, getIntConfig, initConfig
 if not os.path.isfile(CONFIG_FILE):
     logging.info("Config file not found, creating a new one")
     initConfig()
@@ -48,7 +48,7 @@ def main():
         case 'normal':
             autoTraining(PP)
         case 'switch':
-            switchTraining(PP)
+            switchTraining(PP, getIntConfig('Switch_Pokemon'))
         case _:
             logging.error("Invalid training type")
             raise ConfigFileError()
