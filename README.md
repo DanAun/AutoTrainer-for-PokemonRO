@@ -10,16 +10,12 @@ This project automates the repetitive leveling process in *Pokemon Revolution On
 
 ## Installation & Running  
 **Windows:**  
-1. Download the latest release from the GitHub release page.  
+1. Download the latest release for windows from the GitHub release page.  
 2. Run the executable to start the AutoTrainer.  
 
 **Linux:**  
-The script is currently built for Windows, but minimal changes are needed to build it for Linux. Using pyinstaller on your linux system run the following commands:
-```shell
-pyinstaller main.py --onedir --noconsole --add-data "images;images" --name AutoTrainer
-```
-
----
+1. Download the latest release for linux from the GitHub release page.  
+2. Run the executable to start the AutoTrainer.
 
 ## Configuration  
 The behavior of the AutoTrainer can be customized using the `config.ini` file. Ensure the following variables are set according to your preferences:  
