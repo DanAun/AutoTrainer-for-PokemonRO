@@ -32,6 +32,7 @@ def initConfig():
     config['Settings'] = {
                             'training_type': 'normal',
                             'power_point': '[10, 10, 10, 10]',
+                            'switch_pokemon': '2',
                             'mouse_duration': '0.05',
                             'walk_speed': '1',
                             'bike_speed': '10',

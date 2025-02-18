@@ -160,3 +160,6 @@ cython_debug/
 #.idea/
 .flake8
 config.ini
+
+# IDE
+.vscode/

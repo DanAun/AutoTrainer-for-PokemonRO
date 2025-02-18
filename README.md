@@ -1,6 +1,29 @@
-# Purpose & Featue
-The purpose of this project is to create a simple AutoBattler that can automate the tiring process of leveling up your pokemons in battle. The AutoBattler moves you up and down until you are in a battle, where it selects your pokemons first move until defeating the enemy and then repeats the process until you stop the script by moving your mouse to the top left corner of your screen.
+# AutoTrainer for Pokemon Revolution Online (PRO)
 
-# Install & Run
-So far the script is only compiled to work on Windows, but little effort is need to compile into Linux.
-On Windows just download the executable and run the program.
+## Purpose & Features  
+This project automates the repetitive leveling process in *Pokemon Revolution Online (PRO)* with a simple AutoTrainer. It offers two training modes:
+
+- **Normal Mode**: Battles wild Pokémon until the primary Pokémon's PP (Power Points) is depleted. PP is defined in `config.ini`.  
+- **Switch Mode**: Switches Pokémon upon entering battle. The Pokémon to switch to is specified in the `switch_pokemon` setting in `config.ini`.
+
+---
+
+## Installation & Running  
+**Windows:**  
+1. Download the latest release from the GitHub release page.  
+2. Run the executable to start the AutoTrainer.  
+
+**Linux:**  
+The script is currently built for Windows, but minimal changes are needed to build it for Linux. Using pyinstaller on your linux system run the following commands:
+```shell
+pyinstaller main.py --onedir --noconsole --add-data "images;images" --name AutoTrainer
+```
+
+---
+
+## Configuration  
+The behavior of the AutoTrainer can be customized using the `config.ini` file. Ensure the following variables are set according to your preferences:  
+- `power_point`: Determines how many times to use certain moves before stopping training.  
+- `switch_pokemon`: Sets the Pokémon to switch to in Switch Training. For example a value of `2` would switch to secondary pokemon.
+
+---
